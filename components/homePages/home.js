@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
-import addParty from './addParty/addParty';
+import userInfo from './userInfo/userInfo';
 import allUsers from './allUsers';
 import polls from './Polls/polls';
 import sampleUsers from './sampleUsers';
@@ -10,9 +10,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 export default createBottomTabNavigator({
+        userInfo:userInfo,
         Home: allUsers,
         sampleUsers: sampleUsers,
-        addParty: addParty,
+        // addParty: addParty,
         polls: polls
     },
     {
@@ -24,8 +25,8 @@ export default createBottomTabNavigator({
                     iconName = `ios-people${focused ? '' : '-outline'}`;
                 } else if (routeName === 'sampleUsers') {
                     iconName = `ios-podium${focused ? '' : '-outline'}`;
-                }else if (routeName === 'addParty') {
-                    iconName = `ios-add-circle${focused ? '' : '-outline'}`;
+                }else if (routeName === 'userInfo') {
+                    iconName = `md-person`;
                 }else if (routeName === 'polls') {
                     iconName = `ios-options${focused ? '' : '-outline'}`;
                 }

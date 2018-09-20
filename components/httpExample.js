@@ -5,14 +5,18 @@ export default class FetchExample extends React.Component {
 
     constructor(props){
         super(props);
-        this.state ={ isLoading: true}
+        this.state ={ isLoading: true,
+            // url:'http://192.168.43.176:3000/partys'
+            // url:'http://10.0.0.9:3000/partys'
+            url:'http://10.100.102.10:3000/parties'
+        }
     }
 
     componentDidMount(){
-        return fetch('http://192.168.43.176:3000/partys')
+        return fetch(this.state.url)
             .then((response) => response.json())
             .then((responseJson) => {
-                // console.log('responseJson',responseJson.partys);
+                console.log('responseJson',responseJson.parties);
                 this.setState({
                     isLoading: false,
                     dataSource: responseJson,
@@ -46,7 +50,7 @@ export default class FetchExample extends React.Component {
             <View>
                 <ScrollView>
                 <FlatList
-                    data={this.state.dataSource.partys}
+                    data={this.state.dataSource.parties}
                     renderItem={
                         ({item , index}) =>
                             <View style={this.getStyle(index)}>

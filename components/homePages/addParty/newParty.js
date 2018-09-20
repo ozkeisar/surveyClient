@@ -36,13 +36,43 @@ class newParty extends React.Component {
             ]
     };
 
+    // async onFetchLoginRecords() {
+    //     var data = {
+    //         email: this.state.emailAddress,
+    //         password: this.state.passWord
+    //     };
+    //     try {
+    //         let response = await fetch(
+    //             "http://yourdomain.com",
+    //             {
+    //                 method: "POST",
+    //                 headers: {
+    //                     "Accept": "application/json",
+    //                     "Content-Type": "application/json"
+    //                 },
+    //                 body: JSON.stringify(data)
+    //             }
+    //         );
+    //         if (response.status >= 200 && response.status < 300) {
+    //             alert("authenticated successfully!!!");
+    //         }
+    //     } catch (errors) {
+    //         alert(errors);
+    //     }
+    // }
+
+
+
+
     sendData(){
-        console.log(JSON.stringify(this.body.candidates))
-        fetch('http://192.168.43.176:3000/add_new_party', {
+        console.log(JSON.stringify(this.body.candidates));
+
+        // fetch("http://192.168.43.176:3000/add_new_party", {
+        fetch("http://10.0.0.9:3000/add_new_party", {
             method: 'POST',
             headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
+                "Accept": "application/json",
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 partyName: this.body.partyName,
@@ -51,6 +81,8 @@ class newParty extends React.Component {
                 ipv6:'000000',
                 imei:'999999'
             }),
+        }).then((res)=>{
+            console.log(ress);
         });
     }
 

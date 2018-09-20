@@ -12,8 +12,8 @@ const RootStack = createStackNavigator(
     {
         Home: HomeScreen,
         Settings: settingsExample,
-        newParty:newParty,
-        addParty:addParty
+        // newParty:newParty,
+        // addParty:addParty
     },
     {
         initialRouteName: 'Home',
