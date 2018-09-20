@@ -1,14 +1,14 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, View,ScrollView  } from 'react-native';
+import { FlatList, ActivityIndicator, Text, Button,View,ScrollView  } from 'react-native';
 
 export default class GetPartiesList extends React.Component {
 
     constructor(props){
         super(props);
         this.state ={ isLoading: true,
-            // url:'http://192.168.43.176:3000/parties'
+            url:'http://192.168.43.176:3000/parties'
             // url:'http://10.0.0.9:3000/parties'
-            url:'http://10.100.102.10:3000/parties'
+            // url:'http://10.100.102.10:3000/parties'
         }
     }
 
@@ -48,6 +48,7 @@ export default class GetPartiesList extends React.Component {
 
         return(
             <View>
+                <Parent/>
                 <ScrollView>
                     <FlatList
                         data={this.state.dataSource.parties}
@@ -63,6 +64,36 @@ export default class GetPartiesList extends React.Component {
                 </ScrollView>
             </View>
 
+        );
+    }
+}
+class Parent extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            show: false
+        };
+    }
+    updateState = () => {
+        console.log(this.state.show)
+        this.setState({
+            show: !this.state.show
+        });
+    }
+    render() {
+        return (
+            <Child updateState={this.updateState} />
+        );
+    }
+}
+
+class Child extends React.Component {
+    handleClick = () => {
+        this.props.updateState();
+    }
+    render() {
+        return (
+            <View onLayout={this.handleClick}  title='test'></View>
         );
     }
 }
