@@ -3,7 +3,7 @@ import React from 'react';
 import { View, Text, Button } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 import userInfo from './userInfo/userInfo';
-import allUsers from './allUsers';
+import allUsers from './allUsersVotes/allUsers';
 import polls from './Polls/polls';
 import sampleUsers from './sampleUsers';
 import Ionicons from 'react-native-vector-icons/Ionicons';

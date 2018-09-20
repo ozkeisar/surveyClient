@@ -3,7 +3,6 @@ import React from 'react';
 import { View, Text, Button } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 import FetchLocation from './../../components/FetchLocation';
-import FetchExample from './../../components/httpExample';
 
 
 class sampleUsers extends React.Component {

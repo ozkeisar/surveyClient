@@ -1,9 +1,8 @@
 
 import React from 'react';
 import { View, Text, Button } from 'react-native';
-import { createBottomTabNavigator } from 'react-navigation';
-import FetchLocation from './../../components/FetchLocation';
-import FetchExample from './../../components/httpExample';
+import FetchLocation from '../../FetchLocation';
+import GetPartiesList from './http/getPartiesList';
 
 
 class allUsers extends React.Component {
@@ -26,8 +25,7 @@ class allUsers extends React.Component {
         return (
             <View style={{ flex: 1/*, alignItems: 'center', justifyContent: 'center' */}}>
                 <FetchLocation onGetLocation={this.getUserLocationHandler}/>
-                <FetchExample/>
-
+                <GetPartiesList/>
 
                 <Button
                     title="Go to settings"
