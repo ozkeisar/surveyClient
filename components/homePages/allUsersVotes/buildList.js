@@ -15,19 +15,20 @@ export default class ListParties extends React.Component {
         }
     }
 
-    getData(responseJson){
-        console.log('componentDidMount',responseJson)
-        this.setState({
-            isLoading: false,
-            dataSource: responseJson,
-        });
-    }
+    // getData(responseJson){
+    //     console.log('componentDidMount',responseJson)
+    //     this.setState({
+    //         isLoading: false,
+    //         dataSource: responseJson,
+    //     });
+    // }
 
-    updateState = () => {
-        console.log(this.state.show)
+    getData = (test) => {
+        console.log(this.state.show,test)
         this.setState({
             show: !this.state.show,
-            isLoading: !this.state.isLoading
+            isLoading: !this.state.isLoading,
+            dataSource:test
         });
     }
 
@@ -41,7 +42,7 @@ export default class ListParties extends React.Component {
         if(this.state.isLoading){
             return(
                 <View style={{flex: 1, padding: 20}}>
-                    <GetPartiesList updateState={this.updateState} />
+                    <GetPartiesList getData={this.getData} />
                     <ActivityIndicator/>
                 </View>
             )
@@ -52,7 +53,7 @@ export default class ListParties extends React.Component {
             <View>
                 {/*<GetPartiesList updateState={this.getData} />*/}
 
-               {/* <ScrollView>
+               <ScrollView>
                     <FlatList
                         data={this.state.dataSource.parties}
                         renderItem={
@@ -64,7 +65,7 @@ export default class ListParties extends React.Component {
                         }
                         keyExtractor={(item, index) => index.toString()}
                     />
-                </ScrollView>*/}
+                </ScrollView>
             </View>
 
         );

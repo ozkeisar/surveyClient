@@ -31,13 +31,18 @@ export default class GetPartiesList extends React.Component {
                 console.error(error);
             });
     }
+    //
+    // sendData = ()=>{
+    //     this.props.getData(this.componentDidMount());
+    // }
 
-    sendData = ()=>{
-        this.props.getData(this.componentDidMount());
-    }
-
-    handleClick = () => {
-        this.props.updateState();
+    sendData = () => {
+        let interval = setInterval(()=>{
+            if(this.state.dataSource){
+                this.props.getData(this.state.dataSource);
+         clearInterval(interval);
+            }
+        },2);
     }
 
     //
@@ -58,7 +63,7 @@ export default class GetPartiesList extends React.Component {
 
 
         return(
-            <View onLayout={this.handleClick}>
+            <View onLayout={this.sendData}>
                {/* <Parent/>
                 <ScrollView>
                     <FlatList
