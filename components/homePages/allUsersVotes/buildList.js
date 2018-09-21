@@ -1,23 +1,34 @@
 import React from 'react';
 import { FlatList, ActivityIndicator, Text, View,ScrollView  } from 'react-native';
+import GetPartiesList from './http/getPartiesList';
 
 export default class ListParties extends React.Component {
 
     constructor(props){
         super(props);
+        console.log('ListParties constructor')
         this.state ={ isLoading: true,
+            show: false,
             // url:'http://192.168.43.176:3000/parties'
             // url:'http://10.0.0.9:3000/parties'
             url:'http://10.100.102.10:3000/parties'
         }
     }
 
-    componentDidMount(){
+    getData(responseJson){
+        console.log('componentDidMount',responseJson)
         this.setState({
             isLoading: false,
             dataSource: responseJson,
         });
-        return [];
+    }
+
+    updateState = () => {
+        console.log(this.state.show)
+        this.setState({
+            show: !this.state.show,
+            isLoading: !this.state.isLoading
+        });
     }
 
     getStyle=(index)=>{
@@ -30,6 +41,7 @@ export default class ListParties extends React.Component {
         if(this.state.isLoading){
             return(
                 <View style={{flex: 1, padding: 20}}>
+                    <GetPartiesList updateState={this.updateState} />
                     <ActivityIndicator/>
                 </View>
             )
@@ -38,7 +50,9 @@ export default class ListParties extends React.Component {
 
         return(
             <View>
-                <ScrollView>
+                {/*<GetPartiesList updateState={this.getData} />*/}
+
+               {/* <ScrollView>
                     <FlatList
                         data={this.state.dataSource.parties}
                         renderItem={
@@ -50,7 +64,7 @@ export default class ListParties extends React.Component {
                         }
                         keyExtractor={(item, index) => index.toString()}
                     />
-                </ScrollView>
+                </ScrollView>*/}
             </View>
 
         );

@@ -4,6 +4,8 @@ import { FlatList, ActivityIndicator, Text, Button,View,ScrollView  } from 'reac
 export default class GetPartiesList extends React.Component {
 
     constructor(props){
+        console.log('GetPartiesList constructor')
+
         super(props);
         this.state ={ isLoading: true,
             url:'http://192.168.43.176:3000/parties'
@@ -16,7 +18,7 @@ export default class GetPartiesList extends React.Component {
         return fetch(this.state.url)
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log('responseJson',responseJson.parties);
+                // console.log('responseJson',responseJson.parties);
                 this.setState({
                     isLoading: false,
                     dataSource: responseJson,
@@ -30,9 +32,18 @@ export default class GetPartiesList extends React.Component {
             });
     }
 
-    getStyle=(index)=>{
-        return index != 0?{flex: 1, padding: 20}:{flex: 1, padding: 20, backgroundColor:"#adff2f"};
+    sendData = ()=>{
+        this.props.getData(this.componentDidMount());
     }
+
+    handleClick = () => {
+        this.props.updateState();
+    }
+
+    //
+    // getStyle=(index)=>{
+    //     return index != 0?{flex: 1, padding: 20}:{flex: 1, padding: 20, backgroundColor:"#adff2f"};
+    // }
 
 
     render(){
@@ -47,8 +58,8 @@ export default class GetPartiesList extends React.Component {
 
 
         return(
-            <View>
-                <Parent/>
+            <View onLayout={this.handleClick}>
+               {/* <Parent/>
                 <ScrollView>
                     <FlatList
                         data={this.state.dataSource.parties}
@@ -61,7 +72,7 @@ export default class GetPartiesList extends React.Component {
                         }
                         keyExtractor={(item, index) => index.toString()}
                     />
-                </ScrollView>
+                </ScrollView>*/}
             </View>
 
         );

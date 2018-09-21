@@ -3,6 +3,7 @@ import React from 'react';
 import { View, Text, Button } from 'react-native';
 import FetchLocation from '../../FetchLocation';
 import GetPartiesList from './http/getPartiesList';
+import PartiesList from './buildList';
 
 
 class allUsers extends React.Component {
@@ -25,7 +26,9 @@ class allUsers extends React.Component {
         return (
             <View style={{ flex: 1/*, alignItems: 'center', justifyContent: 'center' */}}>
                 <FetchLocation onGetLocation={this.getUserLocationHandler}/>
-                <GetPartiesList/>
+                {/*<GetPartiesList/>*/}
+
+                <PartiesList/>
 
                 <Button
                     title="Go to settings"
