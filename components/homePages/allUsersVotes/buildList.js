@@ -47,7 +47,6 @@ export default class ListParties extends React.Component {
 
         return(
             <View>
-                {/*<GetPartiesList updateState={this.getData} />*/}
 
                <ScrollView>
                     <FlatList
