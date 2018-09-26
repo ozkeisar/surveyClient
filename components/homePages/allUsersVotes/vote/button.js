@@ -7,30 +7,42 @@ export default class VoteButton extends React.Component {
         super(props);
         this.state ={ isLoading: true,
             show: false,
+            url:'http://192.168.43.176:3000/vote'
         }
     }
+
+
+    vote(partyId,userId){
+        fetch(this.state.url, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userInfo: userId,
+                partyId:partyId,
+            }),
+        });
+    }
+
+
+
 
     render(){
 
 
         return(
         <Button
-            type="primary"
-            onPress={() => alert('Primary Button')}
+            type="vote"
+            onPress={() => {
+                alert('vote Button'+this.props.partyId);
+                this.vote(this.props.partyId,'20')
+            }}
             containerStyle={styles.buttonContainer}
             title='הצבע'
         >
         </Button>
-        // <Button
-        //     color={ 'blue' }
-        //     onPress={ () => alert('Submit button pressed') }
-        //     style={{}}
-        //     title='הצבע'
-        // />
-
-        // <Button style={{color: 'tomato',fontSize: 17,justifyContent: 'center',alignItems:'center',alignSelf: "center",textAlign: 'center'}}>
-        //             {{ "הצבע!"}}
-        //         </Button>
         );
     }
 }
@@ -44,7 +56,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F5FCFF',
     },
     buttonContainer: {
-        width: 80,
+        width: 70,
         height: 30,
         marginVertical: 0
     },

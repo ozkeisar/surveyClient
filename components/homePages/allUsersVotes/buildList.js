@@ -60,7 +60,7 @@ export default class ListParties extends React.Component {
                                         <Text>{'מנדטים:'}{item.mandates}</Text>
                                     </View>
                                     <View  style={{flex: 1,justifyContent: 'center'}}>
-                                        <VoteButton/>
+                                        <VoteButton partyId={item._id}/>
                                     </View>
 
                                 </View>

@@ -26,7 +26,6 @@ class allUsers extends React.Component {
         return (
             <View style={{ flex: 1/*, alignItems: 'center', justifyContent: 'center' */}}>
                 <FetchLocation onGetLocation={this.getUserLocationHandler}/>
-                {/*<GetPartiesList/>*/}
 
                 <PartiesList/>
 
@@ -34,11 +33,6 @@ class allUsers extends React.Component {
                     title="Go to settings"
                     onPress={() => this.props.navigation.navigate('Settings')}
                 />
-
-                {/*<Button*/}
-                {/*title="Update the title"*/}
-                {/*onPress={() => this.props.navigation.setParams({otherParam: 'Updated!'})}*/}
-                {/*/>*/}
             </View>
         );
     }
