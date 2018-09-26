@@ -1,30 +1,25 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, View,ScrollView  } from 'react-native';
+import { FlatList, ActivityIndicator, Text, View,ScrollView ,Dimensions ,I18nManager} from 'react-native';
 import GetPartiesList from './http/getPartiesList';
+import VoteButton from './vote/button';
+
+
+// I18nManager.forceRTL(true);
+var width = Dimensions.get('window').width;
 
 export default class ListParties extends React.Component {
 
     constructor(props){
         super(props);
-        console.log('ListParties constructor')
+        // console.log('ListParties constructor')
         this.state ={ isLoading: true,
             show: false,
-            // url:'http://192.168.43.176:3000/parties'
-            // url:'http://10.0.0.9:3000/parties'
-            url:'http://10.100.102.10:3000/parties'
         }
     }
 
-    // getData(responseJson){
-    //     console.log('componentDidMount',responseJson)
-    //     this.setState({
-    //         isLoading: false,
-    //         dataSource: responseJson,
-    //     });
-    // }
 
     getData = (test) => {
-        console.log(this.state.show,test)
+        // console.log(this.state.show,test)
         this.setState({
             show: !this.state.show,
             isLoading: !this.state.isLoading,
@@ -33,7 +28,8 @@ export default class ListParties extends React.Component {
     }
 
     getStyle=(index)=>{
-        return index != 0?{flex: 1, padding: 20}:{flex: 1, padding: 20, backgroundColor:"#adff2f"};
+        let height = 80;
+        return index != 0?{flexDirection: 'row', height:height, }:{flexDirection: 'row',flex: 1, height:height, backgroundColor:"#adff2f"};
     }
 
 
@@ -58,9 +54,15 @@ export default class ListParties extends React.Component {
                         data={this.state.dataSource.parties}
                         renderItem={
                             ({item , index}) =>
-                                <View style={this.getStyle(index)}>
-                                    <Text>{'name: '}{item.name}</Text>
-                                    <Text>{'mandats: '}{item.mandates}</Text>
+                                <View style={this.getStyle(index)} >
+                                    <View  style={{width:width*.75,justifyContent: 'center'}}>
+                                        <Text>{item.name}</Text>
+                                        <Text>{'מנדטים:'}{item.mandates}</Text>
+                                    </View>
+                                    <View  style={{flex: 1,justifyContent: 'center'}}>
+                                        <VoteButton/>
+                                    </View>
+
                                 </View>
                         }
                         keyExtractor={(item, index) => index.toString()}

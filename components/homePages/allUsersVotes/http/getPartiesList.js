@@ -31,10 +31,7 @@ export default class GetPartiesList extends React.Component {
                 console.error(error);
             });
     }
-    //
-    // sendData = ()=>{
-    //     this.props.getData(this.componentDidMount());
-    // }
+
 
     sendData = () => {
         let interval = setInterval(()=>{
@@ -64,52 +61,38 @@ export default class GetPartiesList extends React.Component {
 
         return(
             <View onLayout={this.sendData}>
-               {/* <Parent/>
-                <ScrollView>
-                    <FlatList
-                        data={this.state.dataSource.parties}
-                        renderItem={
-                            ({item , index}) =>
-                                <View style={this.getStyle(index)}>
-                                    <Text>{'name: '}{item.name}</Text>
-                                    <Text>{'mandats: '}{item.mandates}</Text>
-                                </View>
-                        }
-                        keyExtractor={(item, index) => index.toString()}
-                    />
-                </ScrollView>*/}
             </View>
 
         );
     }
 }
-class Parent extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            show: false
-        };
-    }
-    updateState = () => {
-        console.log(this.state.show)
-        this.setState({
-            show: !this.state.show
-        });
-    }
-    render() {
-        return (
-            <Child updateState={this.updateState} />
-        );
-    }
-}
-
-class Child extends React.Component {
-    handleClick = () => {
-        this.props.updateState();
-    }
-    render() {
-        return (
-            <View onLayout={this.handleClick}  title='test'></View>
-        );
-    }
-}
+// class Parent extends React.Component {
+//     constructor(props){
+//         super(props);
+//         this.state = {
+//             show: false
+//         };
+//     }
+//     updateState = () => {
+//         console.log(this.state.show)
+//         this.setState({
+//             show: !this.state.show
+//         });
+//     }
+//     render() {
+//         return (
+//             <Child updateState={this.updateState} />
+//         );
+//     }
+// }
+//
+// class Child extends React.Component {
+//     handleClick = () => {
+//         this.props.updateState();
+//     }
+//     render() {
+//         return (
+//             <View onLayout={this.handleClick}  title='test'></View>
+//         );
+//     }
+// }
