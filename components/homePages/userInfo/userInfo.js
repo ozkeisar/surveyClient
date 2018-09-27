@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { View, Text, Button,StyleSheet } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
+import { View, Text, Button,StyleSheet ,AsyncStorage  } from 'react-native';
+import { FormLabel, FormInput, FormValidationMessage} from 'react-native-elements'
 
 class userInfo extends React.Component {
 
@@ -16,27 +16,76 @@ class userInfo extends React.Component {
     constructor(props){
         super(props);
         this.state ={
-            isData:false
+            isData:false,
+
         }
-    }
-
-    getStoredData(){
+        this.getStoredData();
 
     }
+    userInfo={
 
-    async isDataExist(){
-        try {
-            const value = await AsyncStorage.getItem('TASKS');
-            if (value !== null) {
-                this.setState({ isData: true });
-                // We have data!!
-                console.log(value);
-            }
-        } catch (error) {
+    }
+
+    async getStoredData(){
+        // try {
+            // const value = await AsyncStorage.getItem('userInfo');
+            // console.log('value ',value);
+            // if (value !== null) {
+                // this.setState({ isData: true });
+                // this.state = { isData: true }
+                // this.userInfo = value;
+                // console.log(value);
+            // }
+        // } catch (error) {
             // Error retrieving data
+        // }
+    }
+
+    async saveData(){
+        if(this.isPhoneNumber(this.userInfo.phone)) {
+
+            this.userInfo._id = await this.register();
+            console.log('user info 2',this.userInfo);
+            try {
+                await AsyncStorage.removeItem('userInfo');
+                await AsyncStorage.setItem('userInfo', JSON.stringify(this.userInfo));
+                this.setState({isData: true});
+            } catch (error) {
+                // Error saving data
+            }
+        }else{
+            alert('חובה להכניס מספר פלאפון חוקי')
         }
     }
 
+    async register() {
+
+        let url = 'http://192.168.43.176:3000/register';
+
+        req={
+            userInfo:{
+                name:this.userInfo.fullName
+            },
+            phoneNumber:this.userInfo.phone,
+            location:this.userInfo.location
+        }
+        console.log('user req 3',req);
+
+        let _id = await fetch(url, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(req),
+        });
+
+        return _id;
+    }
+
+    isPhoneNumber(num){
+        return !!num;
+    }
 
 
     render() {
@@ -44,27 +93,32 @@ class userInfo extends React.Component {
 
             return (
                 <View>
+                    <Text>{"הרשם"}</Text>
                     <FormLabel>{"שם מלא"}</FormLabel>
                     <FormInput onChangeText={(text) => {
-
+                        this.userInfo.fullName = text;
                     }
                     }/>
-                    <FormLabel>{"מס פלאפון"}</FormLabel>
+                    <FormLabel>{"*מס פלאפון"}</FormLabel>
                     <FormInput onChangeText={(text) => {
-
+                        this.userInfo.phone = text;
                     }
                     }/>
-                    <FormLabel>{"user _id"}</FormLabel>
+                    <FormLabel>{"עיר/ישוב"}</FormLabel>
                     <FormInput onChangeText={(text) => {
-
+                        this.userInfo.location = text;
                     }
                     }/>
 
 
                     <Button
                         style={ styles.bottomView}
-                        title="save"
-                        onPress={() => alert('save (demo)')}
+                        title="הירשם"
+                        onPress={() =>{
+                            console.log('userInfo1',this.userInfo);
+                            this.saveData();
+                            {/*alert('save (demo)')*/}
+                        }}
                     />
 
                     <Button
@@ -102,8 +156,8 @@ const styles = StyleSheet.create({
         height: 50,
         backgroundColor: '#FF9800',
         justifyContent: 'center',
-        alignItems: 'center',
-        position: 'absolute',
+        // alignItems: 'center',
+        // position: 'absolute',
         bottom: 0
     },
 });
