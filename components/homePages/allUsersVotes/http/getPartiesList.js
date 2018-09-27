@@ -8,7 +8,8 @@ export default class GetPartiesList extends React.Component {
         this.state ={ isLoading: true,
             // url:'http://192.168.43.176:3000/parties'
             // url:'http://10.0.0.9:3000/parties'
-            url:'http://10.100.102.10:3000/parties'
+            url:'http://10.0.0.4:3000/parties'
+            // url:'http://10.100.102.10:3000/parties'
         }
     }
 
