@@ -6,10 +6,14 @@ class partyDetails extends React.Component {
     static navigationOptions = {
         title: 'partyDetails',
     };
+
+
     render() {
+        const param = this.props.navigation.getParam('partyInfo', 'NO-Details')
+        console.log('ll',param);
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>partyDetails Screen</Text>
+                <Text>partyDetails Screen {param.name}</Text>
             </View>
         );
     }

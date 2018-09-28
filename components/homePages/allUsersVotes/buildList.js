@@ -2,13 +2,12 @@ import React from 'react';
 import { FlatList, ActivityIndicator, Text, View,ScrollView ,Dimensions ,I18nManager,TouchableOpacity} from 'react-native';
 import GetPartiesList from './http/getPartiesList';
 import VoteButton from './vote/button';
-
+import { withNavigation } from 'react-navigation';
 
 // I18nManager.forceRTL(true);
 var width = Dimensions.get('window').width;
 
-
-export default class ListParties extends React.Component {
+class ListParties extends React.Component {
 
     constructor(props){
         super(props);
@@ -35,7 +34,7 @@ export default class ListParties extends React.Component {
 
 
     openDetailsPage=(item)=>{
-        // this.props.navigation.navigate('Settings')
+        this.props.navigation.navigate('PartyDetails',{partyInfo:item});
         console.log('magic: '+item._id)
         // alert('magic: ',item._id)
     }
@@ -82,3 +81,4 @@ export default class ListParties extends React.Component {
     }
 }
 
+export default withNavigation(ListParties);
