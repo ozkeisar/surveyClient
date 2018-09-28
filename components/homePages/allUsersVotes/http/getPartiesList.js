@@ -1,11 +1,9 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, Button,View,ScrollView  } from 'react-native';
+import { FlatList, ActivityIndicator, Text, View,ScrollView  } from 'react-native';
 
 export default class GetPartiesList extends React.Component {
 
     constructor(props){
-        console.log('GetPartiesList constructor')
-
         super(props);
         this.state ={ isLoading: true,
             url:'http://192.168.43.176:3000/parties'
