@@ -1,13 +1,13 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, View,ScrollView ,Dimensions ,I18nManager} from 'react-native';
+import { FlatList, ActivityIndicator, Text, View,ScrollView ,Dimensions ,I18nManager,TouchableOpacity} from 'react-native';
 import GetPartiesList from './http/getPartiesList';
 import VoteButton from './vote/button';
-
+import { withNavigation } from 'react-navigation';
 
 // I18nManager.forceRTL(true);
 var width = Dimensions.get('window').width;
 
-export default class ListParties extends React.Component {
+class ListParties extends React.Component {
 
     constructor(props){
         super(props);
@@ -33,6 +33,14 @@ export default class ListParties extends React.Component {
     }
 
 
+    openDetailsPage=(item)=>{
+        this.props.navigation.navigate('PartyDetails',{partyInfo:item});
+        console.log('magic: '+item._id)
+        // alert('magic: ',item._id)
+    }
+
+
+
     render(){
 
         if(this.state.isLoading){
@@ -47,23 +55,23 @@ export default class ListParties extends React.Component {
 
         return(
             <View>
-
                <ScrollView>
                     <FlatList
                         data={this.state.dataSource.parties}
                         renderItem={
                             ({item , index}) =>
                                 <View style={this.getStyle(index)} >
-                                    <View  style={{width:width*.75,justifyContent: 'center'}}>
+                                    <TouchableOpacity  style={{width:width*.75,justifyContent: 'center'}} onPress={()=>{this.openDetailsPage(item)}}>
                                         <Text>{item.name}</Text>
                                         <Text>{'מנדטים:'}{item.mandates}</Text>
-                                    </View>
+                                    </TouchableOpacity>
                                     <View  style={{flex: 1,justifyContent: 'center'}}>
                                         <VoteButton partyId={item._id}/>
                                     </View>
 
                                 </View>
                         }
+                        navigation={this.props.navigation}
                         keyExtractor={(item, index) => index.toString()}
                     />
                 </ScrollView>
@@ -72,3 +80,5 @@ export default class ListParties extends React.Component {
         );
     }
 }
+
+export default withNavigation(ListParties);
