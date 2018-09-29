@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, View,ScrollView , StyleSheet,Button } from 'react-native';
+import { FlatList, ActivityIndicator, Text, View,ScrollView , StyleSheet,Button ,AsyncStorage} from 'react-native';
 
 export default class VoteButton extends React.Component {
 
@@ -13,20 +13,46 @@ export default class VoteButton extends React.Component {
 
 
     vote(partyId,userId){
+        let formBody = [];
+
+        let url = 'http://192.168.43.176:3000/register';
+
+        let encodedKey = encodeURIComponent("userInfo");
+        let encodedValue = encodeURIComponent(userId);
+        formBody.push(encodedKey + "=" + encodedValue);
+        encodedKey = encodeURIComponent("partyId");
+        encodedValue = encodeURIComponent(partyId);
+        formBody.push(encodedKey + "=" + encodedValue);
+
+        formBody = formBody.join("&");
+
+
+        console.log('partyId: ',partyId,'userId: ',userId);
         fetch(this.state.url, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                // 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                userInfo: userId,
-                partyId:partyId,
-            }),
+            body:formBody
         });
     }
 
-
+    async getUserId(){
+        let id =undefined;
+        try {
+            const value = await AsyncStorage.getItem('userInfo');
+            if (value !== null) {
+                id = JSON.parse(value)._id;
+            }else {
+                alert('you must register first');
+            }
+        } catch (error) {
+            // Error retrieving data
+        }
+        return id;
+    }
 
 
     render(){
@@ -35,9 +61,9 @@ export default class VoteButton extends React.Component {
         return(
         <Button
             type="vote"
-            onPress={() => {
-                alert('vote Button'+this.props.partyId);
-                this.vote(this.props.partyId,'20')
+            onPress={async () => {
+                alert('vote Button: '+this.props.partyId);
+                this.vote(this.props.partyId,await this.getUserId())
             }}
             containerStyle={styles.buttonContainer}
             title='הצבע'
