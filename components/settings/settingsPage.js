@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { View, Text, Button, Switch,StyleSheet } from 'react-native';
+import SwitchLine from './property/switchLine'
 
 class settings extends React.Component {
     static navigationOptions = {
@@ -20,14 +21,8 @@ class settings extends React.Component {
     render() {
         return (
             <View>
-
                 <View style={{flex: 1, margin:10}}>
-                    <Switch
-                        onValueChange={() => {
-                            this.setState({refresh: !this.state.refresh})
-                            this.values.test = !this.values.test
-                        }}
-                        value={this.values.test}/>
+                    <SwitchLine text="בדיקה"/>
                 </View>
             </View>
         );
