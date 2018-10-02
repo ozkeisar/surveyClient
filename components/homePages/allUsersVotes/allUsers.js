@@ -30,8 +30,6 @@ class allUsers extends React.Component {
                 <FetchLocation onGetLocation={this.getUserLocationHandler}/>
 
                 <PartiesList/>
-                <PartiesList/>
-                <PartiesList/>
 
                 <Button
                     title="Go to settings"
