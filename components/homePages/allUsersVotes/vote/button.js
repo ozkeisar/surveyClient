@@ -55,20 +55,23 @@ export default class VoteButton extends React.Component {
     }
 
 
-    render(){
+    render() {
 
 
-        return(
-        <Button
-            type="vote"
-            onPress={async () => {
-                alert('vote Button: '+this.props.partyId);
-                this.vote(this.props.partyId,await this.getUserId())
-            }}
-            containerStyle={styles.buttonContainer}
-            title='הצבע'
-        >
-        </Button>
+        return (
+            <View style={styles.buttonContainer}>
+                <Button
+                    type="vote"
+                    onPress={async() => {
+                        alert('vote Button: ' + this.props.partyId);
+                        this.vote(this.props.partyId, await this.getUserId())
+                    }}
+                    containerStyle={styles.buttonContainer}
+
+                    title='הצבע'
+                >
+                </Button>
+            </View>
         );
     }
 }
@@ -82,8 +85,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#F5FCFF',
     },
     buttonContainer: {
-        width: 50,
-        height: 30,
+        justifyContent: 'center',
+        width: 60,
+        height: 2,
         marginVertical: 0
     },
     content:{
