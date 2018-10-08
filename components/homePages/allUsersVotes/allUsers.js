@@ -31,10 +31,6 @@ class allUsers extends React.Component {
 
                 <PartiesList/>
 
-                <Button
-                    title="Go to settings"
-                    onPress={() => this.props.navigation.navigate('Settings')}
-                />
                 </ScrollView>
 
             </View>
