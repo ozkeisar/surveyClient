@@ -1,9 +1,11 @@
 import React from 'react';
 import { FlatList, ActivityIndicator, Text,StyleSheet, View,ScrollView ,Dimensions ,I18nManager,TouchableOpacity} from 'react-native';
-import { FormLabel, FormInput, Avatar} from 'react-native-elements'
+import { FormLabel, FormInput, Avatar, Icon } from 'react-native-elements'
 import GetPartiesList from './http/getPartiesList';
 import VoteButton from './vote/button';
 import { withNavigation } from 'react-navigation';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 
 I18nManager.forceRTL(true);
 var width = Dimensions.get('window').width;
@@ -72,7 +74,7 @@ class ListParties extends React.Component {
                                         <Avatar
                                             large
                                             rounded
-                                            source={{uri: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg"}}
+                                            source={{uri:item.imageUrl?item.imageUrl: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg"}}
                                             onPress={() => this.openDetailsPage(item)}
                                             activeOpacity={0.7}
                                         />
@@ -84,16 +86,18 @@ class ListParties extends React.Component {
                                                       }}>
 
                                         <Text style={styles.titleText}>{item.name}</Text>
-                                        <View style={{
-                                            borderWidth: borderWidth,
-                                            flexDirection: 'row',
-                                            top: 17
-                                        }}>
+                                        <View style={styles.detailsRow}>
                                             <Text style={styles.MandatsNumber}>{item.mandates}</Text>
-                                            <Text style={styles.MandatsText}>{' מנדטים'}</Text>
+                                            <Text style={styles.MandatsText}>{' מנדטים  '}</Text>
+                                            <Text style={styles.percentNumber}>{item.percent?item.percent:13}{'%'}</Text>
                                         </View>
+                                        <View style={styles.arrow}>
+                                            <Ionicons name={'ios-arrow-up'} size={48} color={'green'} style={{top:3,opacity:100}}/>
+                                            <Ionicons name={'ios-arrow-down'} size={48} color={'red'} style={{top:-19,opacity:0}} />
 
+                                        </View>
                                     </TouchableOpacity>
+
                                     <View style={{
                                         padding: 5,
                                         borderWidth: borderWidth,
@@ -120,16 +124,46 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         alignSelf: 'flex-start',
-        top:11
+        top:11,
+        borderWidth: borderWidth
+    },
+    arrow:{
+        width: width * .09,
+        // alignSelf: 'flex-end',
+        position: 'absolute',
+        right:5,
+        top:0,
+        bottom: 0,
+        borderWidth: borderWidth
+    },
+    detailsRow:{
+        borderWidth: borderWidth,
+        flexDirection: 'row',
+        top: 17,
+        width: width * .40
     },
     MandatsNumber: {
         fontSize: 23,
         fontWeight: 'bold',
-        justifyContent: 'flex-start'
+        // justifyContent: 'flex-start',
+        position: 'relative',
+        bottom:1,
+        borderWidth: borderWidth
+    },
+    percentNumber: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        // justifyContent: 'space-between',
+        position: 'relative',
+        bottom:-2,
+        borderWidth: borderWidth
     },
     MandatsText: {
         top: 8,
-        justifyContent: 'flex-end'
+        // justifyContent: 'flex-end',
+        position: 'relative',
+        bottom:-2,
+        borderWidth: borderWidth
     },
 });
 

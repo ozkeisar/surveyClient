@@ -1,8 +1,6 @@
 // import React, { Component } from 'react';
 // import { AppRegistry, Text, View } from 'react-native';
 import HomeScreen from './components/homePages/home';
-import newParty from './components/homePages/addParty/newParty';
-import addParty from './components/homePages/addParty/addParty';
 import settingsExample from './components/settings/settingsExample';
 import partyDetails from './components/homePages/partyDetailsPage/partyDetails';
 import React from 'react';
@@ -29,11 +27,9 @@ const RootStack = createStackNavigator(
                 fontWeight: 'bold',
             },
             headerRight: (
-                <Button
-                    onPress={() => alert('This is a button!')}
-                    title="Info"
-                    color="#f4511e"
-                />
+                <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',padding:20}}>
+                    {'myVote'}
+                </Text>
             ),
         },
     }
