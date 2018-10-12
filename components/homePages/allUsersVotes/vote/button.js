@@ -1,7 +1,8 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, View,ScrollView , StyleSheet,Button ,AsyncStorage} from 'react-native';
+import { FlatList, ActivityIndicator, Text, View,ScrollView , StyleSheet,Button ,AsyncStorage,Vibration} from 'react-native';
+import { withNavigation } from 'react-navigation';
 
-export default class VoteButton extends React.Component {
+class VoteButton extends React.Component {
 
     constructor(props){
         super(props);
@@ -14,7 +15,7 @@ export default class VoteButton extends React.Component {
 
     vote(partyId,userId){
         let formBody = [];
-
+        Vibration.vibrate(100)
         let url = 'http://192.168.43.176:3000/register';
 
         let encodedKey = encodeURIComponent("userInfo");
@@ -46,7 +47,9 @@ export default class VoteButton extends React.Component {
             if (value !== null) {
                 id = JSON.parse(value)._id;
             }else {
-                alert('you must register first');
+                // alert('you must register first');
+                console.log('you must register first',value);
+                this.props.navigation.navigate('RegisterPage');
             }
         } catch (error) {
             // Error retrieving data
@@ -63,7 +66,7 @@ export default class VoteButton extends React.Component {
                 <Button
                     type="vote"
                     onPress={async() => {
-                        alert('vote Button: ' + this.props.partyId);
+                        console.log('vote Button: ' + this.props.partyId);
                         this.vote(this.props.partyId, await this.getUserId())
                     }}
                     containerStyle={styles.buttonContainer}
@@ -94,3 +97,5 @@ const styles = StyleSheet.create({
         fontSize: 15
     }
 })
+
+export default withNavigation(VoteButton);

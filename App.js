@@ -2,6 +2,7 @@
 // import { AppRegistry, Text, View } from 'react-native';
 import HomeScreen from './components/homePages/home';
 import settingsExample from './components/settings/settingsExample';
+import register from './components/registerPage/register';
 import partyDetails from './components/homePages/partyDetailsPage/partyDetails';
 import React from 'react';
 import { View, Text, Button } from 'react-native';
@@ -11,11 +12,10 @@ const RootStack = createStackNavigator(
     {
         Home: HomeScreen,
         Settings: settingsExample,
+        RegisterPage: register,
         PartyDetails:partyDetails
-        // newParty:newParty,
-        // addParty:addParty
     },
-    {
+{
         initialRouteName: 'Home',
         /* The header config from HomeScreen is now here */
         navigationOptions: {

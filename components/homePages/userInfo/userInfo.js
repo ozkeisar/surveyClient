@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, Text, Button,StyleSheet ,AsyncStorage  } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage} from 'react-native-elements'
+import RegisterForm from './../../registerPage/registerForm'
 
 class userInfo extends React.Component {
 
@@ -104,46 +105,48 @@ class userInfo extends React.Component {
 
     render() {
         if (!this.state.isData) {
-
-            return (
-                <View>
-                    <Text>{"הרשם"}</Text>
-                    <FormLabel>{"שם מלא"}</FormLabel>
-                    <FormInput onChangeText={(text) => {
-                        this.userInfo.fullName = text;
-                    }
-                    }/>
-                    <FormLabel>{"*מס פלאפון"}</FormLabel>
-                    <FormInput onChangeText={(text) => {
-                        this.userInfo.phoneNumber = text;
-                    }
-                    }/>
-                    <FormLabel>{"עיר/ישוב"}</FormLabel>
-                    <FormInput onChangeText={(text) => {
-                        this.userInfo.location = text;
-                    }
-                    }/>
-
-
-                    <Button
-                        style={ styles.bottomView}
-                        title="הירשם"
-                        onPress={() =>{
-                            console.log('userInfo1',this.userInfo);
-                            this.saveData();
-                            {/*alert('save (demo)')*/}
-                        }}
-                    />
-
-                    <Button
-                        style={ styles.bottomView}
-                        title="settings"
-                        onPress={() => this.props.navigation.navigate('Settings')}
-                    />
-
-
-                </View>
-            );
+            return(
+                <RegisterForm/>
+            )
+            // return (
+            //     <View>
+            //         <Text>{"הרשם"}</Text>
+            //         <FormLabel>{"שם מלא"}</FormLabel>
+            //         <FormInput onChangeText={(text) => {
+            //             this.userInfo.fullName = text;
+            //         }
+            //         }/>
+            //         <FormLabel>{"*מס פלאפון"}</FormLabel>
+            //         <FormInput onChangeText={(text) => {
+            //             this.userInfo.phoneNumber = text;
+            //         }
+            //         }/>
+            //         <FormLabel>{"עיר/ישוב"}</FormLabel>
+            //         <FormInput onChangeText={(text) => {
+            //             this.userInfo.location = text;
+            //         }
+            //         }/>
+            //
+            //
+            //         <Button
+            //             style={ styles.bottomView}
+            //             title="הירשם"
+            //             onPress={() =>{
+            //                 console.log('userInfo1',this.userInfo);
+            //                 this.saveData();
+            //                 {/*alert('save (demo)')*/}
+            //             }}
+            //         />
+            //
+            //         <Button
+            //             style={ styles.bottomView}
+            //             title="settings"
+            //             onPress={() => this.props.navigation.navigate('Settings')}
+            //         />
+            //
+            //
+            //     </View>
+            // );
         }else {
             return (
                 <View>
