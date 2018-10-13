@@ -6,11 +6,17 @@ import RegisterForm from './../registerPage/registerForm'
 
 class register extends React.Component {
 
-
+    updateState = () => {
+        console.log('register page')
+        // this.setState({
+        //     isData: !this.state.isData
+        // });
+        this.props.navigation.navigate('Home');
+    }
 
     render() {
             return (
-               <RegisterForm/>
+               <RegisterForm updateState={this.updateState}/>
             );
 
     }

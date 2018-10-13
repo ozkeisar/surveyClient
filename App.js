@@ -12,7 +12,7 @@ const RootStack = createStackNavigator(
     {
         Home: HomeScreen,
         Settings: settingsExample,
-        RegisterPage: register,
+        Register: register,
         PartyDetails:partyDetails
     },
 {

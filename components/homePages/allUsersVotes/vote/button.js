@@ -49,7 +49,7 @@ class VoteButton extends React.Component {
             }else {
                 // alert('you must register first');
                 console.log('you must register first',value);
-                this.props.navigation.navigate('RegisterPage');
+                this.props.navigation.navigate('Register');
             }
         } catch (error) {
             // Error retrieving data
