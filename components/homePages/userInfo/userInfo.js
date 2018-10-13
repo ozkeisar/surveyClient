@@ -49,6 +49,15 @@ class userInfo extends React.Component {
         this.setState({ isLoading: false });
     }
 
+    async clearData(){
+        try {
+            await AsyncStorage.removeItem('userInfo');
+            this.setState({ isData: false });
+        } catch (error) {
+            // Error retrieving data
+        }
+    }
+
     updateState = () => {
         this.getStoredData();
         console.log(this.state.isData)
@@ -96,6 +105,11 @@ class userInfo extends React.Component {
                         style={ styles.bottomView}
                         title="settings"
                         onPress={() => this.props.navigation.navigate('Settings')}
+                    />
+                    <Button
+                        style={ styles.bottomView}
+                        title="clear data"
+                        onPress={() => this.clearData() }
                     />
 
                 </View>
