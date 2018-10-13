@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { View, Text, Button,StyleSheet ,AsyncStorage  } from 'react-native';
+import { View, Text, Button,StyleSheet ,AsyncStorage,ActivityIndicator  } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage} from 'react-native-elements'
 import RegisterForm from './../../registerPage/registerForm'
 
@@ -14,24 +14,27 @@ class userInfo extends React.Component {
     };
 
 
+    userInfo={
+
+    }
+
+
     constructor(props){
         super(props);
         this.state ={
             isData:false,
-
+            isLoading:true
         }
         this.getStoredData();
 
     }
-    userInfo={
 
-    }
 
     async getStoredData(){
         try {
             // await AsyncStorage.removeItem('userInfo');
             const value = await AsyncStorage.getItem('userInfo');
-            // console.log('value ',value);
+            console.log('getStoredData ',value);
             if (value !== null) {
 
                 // this.state = { isData: true }
@@ -43,110 +46,31 @@ class userInfo extends React.Component {
         } catch (error) {
             // Error retrieving data
         }
+        this.setState({ isLoading: false });
     }
 
-    async saveData(){
-        if(this.isPhoneNumber(this.userInfo.phoneNumber)) {
-
-            this.userInfo._id = await this.register();
-            console.log('user info 2',this.userInfo);
-            try {
-                await AsyncStorage.removeItem('userInfo');
-                await AsyncStorage.setItem('userInfo', JSON.stringify(this.userInfo));
-                this.setState({isData: true});
-            } catch (error) {
-                // Error saving data
-            }
-        }else{
-            alert('חובה להכניס מספר פלאפון חוקי')
-        }
-    }
-
-    async register() {
-        let formBody = [];
-
-        let url = 'http://192.168.43.176:3000/register';
-
-        let encodedKey = encodeURIComponent("userInfo");
-        let encodedValue = encodeURIComponent(this.userInfo.fullName);
-        formBody.push(encodedKey + "=" + encodedValue);
-        encodedKey = encodeURIComponent("location");
-        encodedValue = encodeURIComponent(this.userInfo.location);
-        formBody.push(encodedKey + "=" + encodedValue);
-        encodedKey = encodeURIComponent("phoneNumber");
-        encodedValue = encodeURIComponent(this.userInfo.phoneNumber);
-        formBody.push(encodedKey + "=" + encodedValue);
-
-        formBody = formBody.join("&");
-
-        // console.log('user req 3',JSON.stringify(req));
-
-        let res = await fetch(url, {
-            method: 'POST',
-            headers: {
-                Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
-                AcceptLanguage: "he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7",
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-
-            },
-            body: formBody,
+    updateState = () => {
+        this.getStoredData();
+        console.log(this.state.isData)
+        this.setState({
+            isData: !this.state.isData
         });
-        let h = JSON.parse(await res.text());
-        // console.log(await res.text());
-        console.log(h._id);
-
-        return h._id;
     }
-
-    isPhoneNumber(num){
-        return !!num;
-    }
-
 
     render() {
+
+        if (this.state.isLoading) {
+            return (
+                <View style={{flex: 1, padding: 20}}>
+                    <ActivityIndicator/>
+                </View>
+            )
+        }
+
         if (!this.state.isData) {
             return(
-                <RegisterForm/>
+                <RegisterForm updateState={this.updateState}/>
             )
-            // return (
-            //     <View>
-            //         <Text>{"הרשם"}</Text>
-            //         <FormLabel>{"שם מלא"}</FormLabel>
-            //         <FormInput onChangeText={(text) => {
-            //             this.userInfo.fullName = text;
-            //         }
-            //         }/>
-            //         <FormLabel>{"*מס פלאפון"}</FormLabel>
-            //         <FormInput onChangeText={(text) => {
-            //             this.userInfo.phoneNumber = text;
-            //         }
-            //         }/>
-            //         <FormLabel>{"עיר/ישוב"}</FormLabel>
-            //         <FormInput onChangeText={(text) => {
-            //             this.userInfo.location = text;
-            //         }
-            //         }/>
-            //
-            //
-            //         <Button
-            //             style={ styles.bottomView}
-            //             title="הירשם"
-            //             onPress={() =>{
-            //                 console.log('userInfo1',this.userInfo);
-            //                 this.saveData();
-            //                 {/*alert('save (demo)')*/}
-            //             }}
-            //         />
-            //
-            //         <Button
-            //             style={ styles.bottomView}
-            //             title="settings"
-            //             onPress={() => this.props.navigation.navigate('Settings')}
-            //         />
-            //
-            //
-            //     </View>
-            // );
         }else {
             return (
                 <View>
@@ -202,3 +126,34 @@ const styles = StyleSheet.create({
 
 
 export default userInfo;
+//
+// class Parent extends React.Component {
+//     constructor(props){
+//         super(props);
+//         this.state = {
+//             show: false
+//         };
+//     }
+//     updateState = () => {
+//         console.log(this.state.show)
+//         this.setState({
+//             show: !this.state.show
+//         });
+//     }
+//     render() {
+//         return (
+//             <Child updateState={this.updateState} />
+//         );
+//     }
+// }
+//
+// class Child extends React.Component {
+//     handleClick = () => {
+//         this.props.updateState();
+//     }
+//     render() {
+//         return (
+//             <View onLayout={this.handleClick}  title='test'></View>
+//         );
+//     }
+// }

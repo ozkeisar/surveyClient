@@ -38,7 +38,6 @@ class RegisterForm extends React.Component {
 
     async saveData(){
         if(this.isPhoneNumber(this.userInfo.phoneNumber)) {
-
             this.userInfo._id = await this.register();
             console.log('user info 2',this.userInfo);
             try {
@@ -48,6 +47,7 @@ class RegisterForm extends React.Component {
             } catch (error) {
                 // Error saving data
             }
+            this.handleClick();
         }else{
             alert('חובה להכניס מספר פלאפון חוקי')
         }
@@ -93,6 +93,9 @@ class RegisterForm extends React.Component {
         return !!num;
     }
 
+    handleClick = () => {
+        this.props.updateState();
+    }
 
 
     render() {
